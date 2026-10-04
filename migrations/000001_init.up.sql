@@ -1,0 +1,18 @@
+CREATE TABLE products(
+	id 	BIGSERIAL PRIMARY KEY,
+	url	TEXT NOT NULL UNIQUE,
+	name	TEXT NOT NULL,
+	site	TEXT NOT NULL,
+	created_at 	TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE prices(
+	id	BIGSERIAL PRIMARY KEY,
+	product_id BIGINT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+	price	NUMERIC(10,2) NOT NULL,
+	currency	TEXT NOT NULL  DEFAULT 'RUB',
+	parsed_at	TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_prices_product_parsed
+	ON prices(product_id, parsed_at DESC);
