@@ -26,7 +26,7 @@ func (p *ChitaiGorodParser) Parse(ctx context.Context, url string) (*model.Price
 
 	var priceStr string
 
-	c.OnHTML(".product-offer-price__actual", func(e *colly.HTMLElement) {
+	c.OnHTML(".new-product-offer-price__actual", func(e *colly.HTMLElement) {
 		if priceStr == "" {
 			priceStr = e.Text
 		}
